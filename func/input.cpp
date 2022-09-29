@@ -6,5 +6,6 @@ int a;
 int main(){
     cin >> a;
     scanf("%d", &a);
+    cout << a << "\n";
     return 0;
 }
