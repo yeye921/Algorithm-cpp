@@ -6,10 +6,10 @@ int main(){
     for(int a : v) cout << a << " ";
     cout << "\n";
 
-    auto a = find(v, v + 10, 100); // 여기서 v가 뭐임???
-    if(a == v + 10) cout << "not found" << "\n";
+    auto a = find(v, v + 10, 100); // v와 v+10은 탐색할 원소의 시작과 끝을 가리키는 이터레이터이다.
+    if(a == v + 10) cout << "not found" << "\n"; // find함수가 last를 리턴하면 찾지 못했다는 의미 
     
-    fill(v, v + 10, 10); 
+    fill(v, v + 10, 10);  // first부터 last까지 10으로 채움
     for(int a : v) cout << a << " ";
     cout << "\n";
     return 0; 
