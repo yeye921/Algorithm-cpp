@@ -1,3 +1,4 @@
+// atoi(해당변수.c_str())
 // 입력받은 문자열이 문자이면 0 반환, 숫자이면 그 숫자를 반환
 #include <bits/stdc++.h>
 using namespace std;

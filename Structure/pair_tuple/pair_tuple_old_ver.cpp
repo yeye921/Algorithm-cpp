@@ -7,7 +7,7 @@ int a, b, c;
 int main(){
     pi = {1, 2};
 
-    // cin(a, b) = pi로 대체 가능
+    // tie(a, b) = pi로 대체 가능
     a = pi.first;
     b = pi.second;
     cout << a << " : " << b << "\n";

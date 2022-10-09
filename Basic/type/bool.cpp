@@ -1,4 +1,6 @@
-// bool은 0이 아니면 true, 0이면 false
+// bool은 0이면 false, 0이 아닌 값들은 모두 true
+// false는 0, true는 1
+// bool()을 통해 간단하게 bool형으로 형변환이 가능함
 #include <bits/stdc++.h>
 using namespace std;
 int main(){
