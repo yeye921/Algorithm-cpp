@@ -9,6 +9,7 @@ int main(){
     st.insert({"test", 1});
     st.insert({"test", 2});
     cout << st.size() << "\n"; // 중복된 요소는 제거함
+    for(auto it : st) cout << it.first << " : " << it.second << "\n";
 
     set<int> st2;
     st2.insert(1);

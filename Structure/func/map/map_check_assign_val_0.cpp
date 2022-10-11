@@ -9,7 +9,7 @@ int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
     
-    if(mp.find(1) == mp.end()){   // mp[1]의 요소가 없다면
+    if(mp.find(1) == mp.end()){   // mp[1]이 존재하지 않는다면
         mp[1] = 0;
     }
     
