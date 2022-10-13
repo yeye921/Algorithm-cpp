@@ -19,7 +19,7 @@ int main(){
         Point a = {i, i};  // a = {10, 10}, {9, 9}, ..., {1, 1}
         v.push_back(a);
     }
-    sort(v.begin(), v.end());
+    sort(v.begin(), v.end());  // cmp 생략
     for(auto it : v) cout << it.y << " : " << it.x << "\n";
     return 0;
 }

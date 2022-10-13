@@ -15,6 +15,6 @@ struct Point {
 
 // 2) 정렬이 필요하지 않을 경우
 struct percent {
-    int x, yl
+    int x, y;
     double w, d, l;
 } a[6];
