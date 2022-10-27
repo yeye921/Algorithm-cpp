@@ -1,4 +1,5 @@
-// 순열을 코드로 구현하는 두번째 방법: 재귀를 이용한 방법
+// 순열을 코드로 구현하는 두번째 방법: 재귀를 이용한 방법 (전통적)
+// 하지만 next_permutation을 이용한 방법이 훨씬 간단함 (추천!)
 #include <cstdio>
 #include <vector>
 #include <algorithm>
@@ -18,9 +19,7 @@ void makePermutation(int n, int r, int depth){
         return;
     }
     for(int i = depth; i < n; i++){
-        cout << v[i] << " : " << v[depth] << "\n";
         swap(v[i], v[depth]);
-        // cout << n << " : " << r << " : " << depth << "\n";  // for 디버깅
         makePermutation(n, r, depth + 1);
         swap(v[i], v[depth]);
     }
