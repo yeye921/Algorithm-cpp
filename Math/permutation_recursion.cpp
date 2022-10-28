@@ -14,6 +14,7 @@ void printV(vector<int> &v){
     cout << "\n";
 }
 void makePermutation(int n, int r, int depth){
+    cout << n << " : " << r << " : " << depth << "\n"; // for debugging
     if(r == depth){
         printV(v);
         return;
