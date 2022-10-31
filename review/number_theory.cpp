@@ -11,7 +11,7 @@ bool isPrimeNumber(int x){
 
 // 에라토스테네스의 체
 // 1. 나동빈 방식 
-// for문에서 int로 선언하는거 까먹지 말자!!
+// for문에서 int로 선언하는거 까먹지 말기!!
 void eratos(){
     int max_n = 10;
     int a[11];
