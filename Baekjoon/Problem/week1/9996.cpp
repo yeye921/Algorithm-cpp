@@ -1,63 +1,37 @@
-// 모르겠는 것
-// 문자열 자르기 => split이용
-// 문자열 내 해당 문자의 위치 찾기 => find이용
-// erase의 두번째 인자는 포함되지 않음 (그전까지 지움)
+// !! 패턴에 있는 별표를 알파벳 소문자로 이루어진 임의의 문자열로 변환해 파일 이름과 같게 만들 수 있어야 한다
+// *의 앞 뒤에 한글자 이상도 올 수 있다
+// prefix: *의 앞에 오는 것들, suffix: *의 뒤에 오는 것들
+// prefix와 suffix를 나누는 것을 substr을 이용함
+
+// 문자열.substr(시작주소, 개수): 문자열의 특정 위치부터 몇개까지를 자름
+// 문자열.substr(시작주소): 문자열의 특정 위치부터 끝까지 자름
+// 문자열.find("abc"): 문자열 내에서 특정 문자열 찾을 때 사용
+
+// 우리는 접두사와 접미사의 길이만큼만 확인하면 됨 
+// 즉, 문자열의 앞과 끝이 접두/접미사와 같은지만 체크하면 됨 !!
+// +) 문자열의 사이즈 > 접두사 사이즈 + 접미사 사이즈 (=반례찾기)
+
 #include <bits/stdc++.h>
 using namespace std;
-int N;
-int pos;
-string pattern, s, a, b;
-vector<string> v;
-void split(string input, string delimeter){
-    while((pos = input.find(delimeter)) != string::npos){
-        a = input.substr(0, pos);
-        input.erase(0, pos + delimeter.size()); // 처음~ 구분자까지 포함해서 자름
-        b = input;
-    }
-}
-string sol(string s){
-    int ia = s.find(a);
-    int ib = s.find(b);
-    if(a.size() > 1) ia = s.find(a) + a.size(); // ia는 a의 끝 인덱스
-
-    while(ib != string::npos){ // s에서 b를 찾을 수 없을 때 까지 반복
-        if(ia < ib){
-            // 성공
-            return "DA";
-        } else {
-            // s에서 b를 없애고 다음 b를 찾음
-            pos = s.find(b);
-            s.erase(pos, pos + b.size()); // 이게 최선일까...?
-            ib = s.find(b);
-        }
-    }
-    return "NE";
-
-    // if(ia != string::npos && ib != string::npos){
-    //     if(a.size() > 1){
-    //         if(ia + a.size() < ib) return "DA";
-    //     } else{
-    //         if(ia < ib) return "DA";
-    //     }
-    // }
-    // return "NE";
-
-}
+int n;
+string s, pattern, pre, suf;
 int main(){
-    cin >> N;
+    cin >> n;
     cin >> pattern;
 
-    // 패턴을 별표를 기준으로 앞/뒤로 자름
-    split(pattern, "*");
+    int pos = pattern.find("*"); // *를 기준으로 앞/뒤로 문자열 자름
+    pre = pattern.substr(0, pos);
+    suf = pattern.substr(pos + 1); // s.substr(first): 특정위치부터 끝까지 자르기
 
-    for(int i = 0; i < N; i++){
+    for(int i = 0; i < n; i++){
         cin >> s;
-
-        // 여기에 판단하는 로직 들어감
-        v.push_back(sol(s));
+        if(pre.size() + suf.size() > s.size()){ // But, 반례(ab*ab =/> ab)때문에 이 부분 필수!!
+            cout << "NE\n";
+        } 
+        else { // 원래는 이 로직만으로도 풀림
+            if(pre == s.substr(0, pre.size()) && suf == s.substr(s.size() - suf.size())) cout << "DA\n";
+            else cout << "NE\n";
+        }
     }
-
-    for(string s : v) cout << s << "\n";
-
     return 0;
 }
