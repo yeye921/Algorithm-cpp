@@ -1,26 +1,31 @@
-// 모르겠는 것
-// 벡터 요소 중 가장 큰 값 찾기: *max_element(first, last)
-// 구간 합 구하는 방법 .. ?
+// N의 범위: 2 ~ 10만
+// K의 범위: 2 ~ (10만 - 1)
+// 온도의 범위: -100 ~ 100
+// 목표: 연속된 온도의 합이 "최대"가 되는 값을 구하라 => 구간합이 생각나야함! (psum[i] = psum[i-1] + a[i])
+
+// 문제에서 최대값을 구하라하면 최소값부터 >>>> 최대값을 구해야함 (ret = max(ret, value))
+// 문제에서 최소값을 구하라하면 최대값부터 >>>> 최소값을 구해야함 (ret = min(ret, value))
+// 중요) 이 문제의 최솟값은? -100 * (10만번 - 1) >> 약 -1000만
+
+// max(int a, int b): a, b중에 더 큰 수 반환
+// min(int a, int b): a, b중에 더 작은 수 반환
 #include <bits/stdc++.h>
 using namespace std;
-int N, K, temp, sum;
-vector<int> v, ret;
+typedef long long ll;
+int n, k, temp, psum[100001];
+int ret = -10000004 // 이 문제의 최소값 (끝점은 넉넉하게 잡아줌 (맞왜틀방지))
 int main(){
-    cin >> N >> K;
-    for(int i = 0; i < N; i++){
-        cin >> temp;
-        v.push_back(temp);
-    }
-    
-    // 이 로직이 시간초과가 남!
-    for(int i = 0; i < (N - K + 1); i++){ // 묶는 횟수
-        sum = 0;
-        for(int j = i; j < K + i; j++){ // 반복하는 횟수가 k번이어야 함
-            sum += v[j];
-        }
-        ret.push_back(sum);
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    cin >> n >> k;
+    for(int i = 1; i <= n; i++){
+        cin >> temp; psum[i] = psum[i - 1] + temp;
     }
 
-    cout << *max_element(ret.begin(), ret.end());
+    // !! 이 부분이 포인트임
+    for(int i = k; i <= n; i++){
+        ret = max(ret, psum[i] - psum[i - k]); // 최소값부터 최대값을 계속 갱신해나감
+    }
+    cout << ret << "\n";
     return 0;
 }
