@@ -1,42 +1,40 @@
-// 시간 초과 남
-// 모르겠는 것
-// 문자열 숫자로 변환하는 법: stoi(문자열), 숫자를 문자열로 변환하는 법: to_string(숫자)
-// 문자열이 영문자인지 확인하는 법: 
-/*
-1. vector내에 해당 원소가 존재하는지 확인 => find(v.begin(), v.end(), 찾는대상)
-2. vector내에 해당 원소가 위치하는 인덱스 찾기 => find(v.begin(), v.end(), 칮는대상) - v.begin()
-*/
-// 문자열인지 숫자인지 모를 때 형선언 어떻게 해서 입력받아야 되는지
-// isdigit(문자 1개): 어떤 문자가 숫자인지 확인
-// ret 사용도 너무 비효율적인듯..? 문자와 숫자를 같은 컨테이너에 저장 못하나?
+// atoi(s.c_str()): 받은 문자열이 문자인지 숫자인지 판단함 (=0이면 문자열)
+// 포켓몬 담는 것은 Arr이나 Map사용
+
+// 1. String - Int
+// 근데 find함수는 Arr에서 O(n)이지만 Map에서는 O(log n)이니까 Map을 사용하자!
+// 따라서 string에 int를 매핑해놔야할 때는 Map을 사용해야 한다 (Arr은 시간초과)
+
+// 2. Int - String
+// Arr는 O(1)걸림 (ex. a[1]="amumu"), Map은 O(log n)걸림 
+// int에 string 매핑하는 것은 Arr, Map 모두 사용 가능 (O(1)과 O(log n)는 크게 차이나지 않기 때문)
+
+// 이렇게 1, 2처럼 두개의 자료구조를 사용해야함 (하나의 자료구조로 1,2를 하면 시간초과남)
 #include <bits/stdc++.h>
 using namespace std;
-int n, m, num;
-string name, problem;
-vector<string> dogam, ret;
+int n, m; // 크기: 1 ~ 10만
+string s;
+map<string, int> mp;
+map<int, string> mp2;
 int main(){
+    // 이 문제의 경우 시간초과가 빡세기때문에 이것도 추가해야함
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
     cin >> n >> m;
 
-    for(int i = 0; i < n; i++){
-        cin >> name;
-        dogam.push_back(name);
+    // 배열같은 경우는 인덱스를 기반으로 요소가 할당됨
+    for(int i = 0; i < n; i++){ // 포켓몬 번호는 1부터 시작함
+        cin >> s;
+        mp[s] = i + 1;
+        mp2[i + 1] = s;
     }
-
     for(int i = 0; i < m; i++){
-        cin >> problem;
+        cin >> s;
 
-        if(isdigit(problem[0])){ // 숫자를 입력받으면 이름을 저장
-            num = stoi(problem);  // 문자열을 숫자로 변환 ("11" => 11)
-            ret.push_back(dogam[num]);
-            // cout << dogam[num] << "\n";
-        }
-        else { // 문자열이면 (이름을 입력받으면 번호 저장)
-            num = find(dogam.begin(), dogam.end(), problem) - dogam.begin(); // 결과: 숫자
-            ret.push_back(to_string(num)); // 문자로 변환해서 저장
-            // cout << to_string(num) << "\n";
+        if(atoi(s.c_str()) == 0){ // s가 문자이면
+            cout << (mp.find(s)) -> second << "\n";
+        } else { // s가 숫자이면
+            cout << mp2[atoi(s.c_str())] << "\n";
         }
     }
-
-    for(string s : ret) cout << s << "\n";
-    return 0;
 }
