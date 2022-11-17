@@ -24,7 +24,7 @@ int main(){
 
     // !! 이 부분이 포인트임
     for(int i = k; i <= n; i++){
-        ret = max(ret, psum[i] - psum[i - k]); // 최소값부터 최대값을 계속 갱신해나감
+        ret = max(ret, psum[i] - psum[i - k]); // 연속적인 k일의 온도의 합 (최소값부터 최대값을 계속 갱신해나감)
     }
     cout << ret << "\n";
     return 0;
