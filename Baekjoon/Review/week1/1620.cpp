@@ -18,4 +18,5 @@ int main(){
             cout << poket[atoi(problem.c_str())] << "\n";
         }
     }
+    return 0;
 }
