@@ -9,6 +9,7 @@
 // Arr는 O(1)걸림 (ex. a[1]="amumu"), Map은 O(log n)걸림 
 // int에 string 매핑하는 것은 Arr, Map 모두 사용 가능 (O(1)과 O(log n)는 크게 차이나지 않기 때문)
 
+// +) map은 key,value형태인데 항상 key로 value를 찾아야함! value로 key를 찾으려고 하면 안됨
 // 이렇게 1, 2처럼 두개의 자료구조를 사용해야함 (하나의 자료구조로 1,2를 하면 시간초과남)
 #include <bits/stdc++.h>
 using namespace std;
