@@ -38,4 +38,5 @@ int main(){
             cout << mp2[atoi(s.c_str())] << "\n";
         }
     }
+    return 0;
 }
