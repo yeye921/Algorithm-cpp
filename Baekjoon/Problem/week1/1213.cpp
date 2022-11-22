@@ -40,6 +40,7 @@ int main() {
 			}
 		}
 	}
+	cout << ret.begin() + ret.size() / 2 << "\n";
 	if(mid)ret.insert(ret.begin() + ret.size() / 2, mid); // ! 중앙에다가 mid를 넣음
 	if(flag == 2)cout << "I'm Sorry Hansoo\n"; // !! 불가능 출력
 	else cout << ret << "\n"; 
