@@ -7,9 +7,9 @@ void go(int from){
     visited[from] = 1; // 해당 정점 방문 처리
     cout << from << "\n";
     for(int i = 0; i < v; i++){
-        if(visited[i]) continue; // 이미 방문한 노드면 건너뜀
-        if(a[from][i]){ // 정점에 연결된 간선이 존재하면
-            go(i);  // 연결된 노드를 이어서 방문함 !!
+        if(visited[i]) continue; // 이미 방문한 정점이면 건너뜀
+        if(a[from][i]){ // 해당 정점과 연결된 정점 중 방문 안한 정점을 방문함 !!
+            go(i);  
         }
     }   
     return;
