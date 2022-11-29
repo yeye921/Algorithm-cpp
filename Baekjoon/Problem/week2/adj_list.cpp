@@ -21,7 +21,7 @@ int main(){
     // 각 정점에 연결된 정점 뽑아내기
     for(int i = 0; i < v; i++){
         cout << i << " :: ";
-        for(int there : adj[i]){
+        for(int there : adj[i]){ // 포인트 !
             cout << there << " ";
         }
         // for(int j = 0; j < adj[i].size(); j++){
