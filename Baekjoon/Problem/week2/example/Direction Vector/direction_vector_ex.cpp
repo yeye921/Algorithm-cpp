@@ -19,7 +19,7 @@ void go(int y, int x){
         if(ny < 0 || ny >= n || nx < 0 || nx >= n) continue;
         if(visited[ny][nx]) continue; // 방문 체크
         if(mp[ny][nx] == 0) continue; // 갈 수 있는 지역 체크
-        cout << ny << " : " << nx << "\n";
+        cout << ny << " : " << n x << "\n";
         go(ny, nx);
     }
     return;
