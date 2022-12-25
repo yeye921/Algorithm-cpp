@@ -24,7 +24,12 @@ void dfs(int x, int y){
 	for(int i = 0; i < 4; i++){
         int ny = y + dy[i];
         int nx = x + dx[i];
+		// dfs를 어떤 경우에 진행해야함 ..? => a[nx][ny] == 0 && visited[x][y] == 0
+        // 여기서 체크하는 조건이 다음과 같이 다양하게 나올 수 있음
+		// if(a[nx][ny] == 1 || a[nx][ny] == 2 || visited[nx][ny]) continue;
+        // if(!a[nx][ny] && !visited[nx][ny]) dfs(nx, ny); 
 		if(nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
+		// cout << nx << ny << " " << a[nx][ny] << "\n";
 		dfs(nx, ny);
 	}
 }
