@@ -19,6 +19,7 @@ vector<int> ret;
 int dfs(int y, int x){ // 넓이변수 대신에 int형 dfs사용 (변수 적게 사용하는게 좋음)
     visited[y][x] = 1; 
     int ret = 1; 
+    cout << y << ", " << x << "\n";
     for(int i = 0; i < 4; i++){
         int ny = y + dy[i]; 
         int nx = x + dx[i]; 
@@ -26,7 +27,6 @@ int dfs(int y, int x){ // 넓이변수 대신에 int형 dfs사용 (변수 적게
 		if(a[ny][nx] == 1) continue;
         ret += dfs(ny, nx);
     } 
-    // cout << y << " : " << x << " : " << ret << "\n";
     return ret; 
 }
 int main() { 
@@ -55,7 +55,7 @@ int main() {
     for(int i = 0; i < m; i++){
         for(int j = 0; j < n; j++){
             if(a[i][j] != 1 & visited[i][j] == 0) { // 색칠되어있지 않고 & 방문되지 않았으면
-                ret.push_back(dfs(i, j));
+                ret.push_back(dfs(i, j)); // 이 부분도 중요 !
             }
         }
     }
