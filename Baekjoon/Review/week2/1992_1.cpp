@@ -8,12 +8,12 @@
 using namespace std;
 int n;
 int a[65][65];
-string s;
+string s, ret;
 string quard(int y, int x, int size){ // 재귀함수
     // cout << y << " : " << x << " : " << size << " : " << ret <<  "\n";
     if(size == 1) return to_string(a[y][x]); // 기저사례: 크기가 1이면 해당 원소 반환
     char b = a[y][x]; // 비교대상
-    string ret = ""; // !!!!!!!!! 왜????
+    ret = ""; // !!!!!!!!! 왜????
     // 해당 영역이 모두 같은 값을 갖고있는지 체크
     for(int i = y; i < y + size; i++){
         for(int j = x; j < x + size; j++){
@@ -28,7 +28,7 @@ string quard(int y, int x, int size){ // 재귀함수
             }
         }
     }
-    // 전체 탐색 결과, 모두 같은 값을 갖는다면
+    // 전체 탐색 결과, 모두 같은 값을 갖는다면t
     return to_string(a[y][x]);
 }
 int main(){
