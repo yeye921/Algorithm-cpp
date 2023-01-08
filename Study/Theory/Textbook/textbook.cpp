@@ -235,7 +235,7 @@ int main(){
 // 경우의 수라고 했을 때 기본적으로 순열과 조합이 생각나야 함
 
 // 순열: 순서가 정해진 임의의 집합을 다른 순서로 섞는 연산
-// 서로 다른 n개중에 r개를 (순서에 상관 있이) 뽑는 경우의 수
+// 서로 다른 n개 중에 r개를 (순서에 상관 있이) 뽑는 경우의 수
 
 // 순열을 코드로 구현하는 법
 // 1. next_permutation(오름차순의 배열을 기반으로 순열을 만들 수 있음)과 prev_permutation(내림차순..) 이용
@@ -261,14 +261,107 @@ int main(){
     cout << "---------------\n";
     v.clear();
     for(int i = 2; i >= 0; i--) v.push_back(a[i]);
-    
+
     // m2) prev_permutation
     do{
         printV(v);
     }while(prev_permutation(v.begin(), v.end()));
 }
 
+// 2. 재귀를 이용해서 순열을 구현하는 방법
+#include <bits/stdc++.h>
+using namespace std;
+int a[3] = {1, 2, 3};
+vector<int> v;
+void printV(vector<int> &v){
+    for(int i : v){
+        cout << i << " ";
+    }
+    cout << "\n";
+}
+void makePermutation(int n, int r, int depth){
+    if(r == depth){
+        printV(v);
+        return;
+    }
+    for(int i = depth; i < n; i++){
+        swap(v[i], v[depth]); 
+        makePermutation(n, r, depth + 1);
+        swap(v[i], v[depth]);
+    }
+    return;
+}
+int main(){
+    for(int i = 0; i < 3; i++) v.push_back(a[i]); // v = {1, 2, 3}
+    makePermutation(3, 3, 0); // n, r, depth
+}// 123, 132, 213, 231, ...
 
-// 조합
+
+// 조합: 오로지 몇명을 다양하게 뽑을 때 사용
 // 서로 다른 n개중에 r개를 (순서에 상관 없이) 뽑는 경우의 수
- 
+
+// 조합을 구현하는 방법
+// 1. 재귀함수를 이용 (뽑은 것의 "인덱스"를 출력하는 함수)
+int n = 5, k = 3, a[5] = {1, 2, 3, 4, 5}; // 5개 숫자중 3개 뽑는 경우의 수
+void print(vector<int> b){
+    for(int i : b) cout << i << " ";
+}
+void combi(int start, vector<int> b){ // b: 뽑은 것을 담을 벡터
+    if(b.size() == k){
+        print(b);
+        return;
+    }
+    for(int i = start + 1; i < n; i++){
+        b.push_back(i);
+        combi(i, b);
+        b.pop_back();
+    }
+    return;
+}
+int main(){
+    vector<int> b;
+    combi(-1, b);
+    return 0;
+} // 012, 013, 014, ...
+
+// 2. 중첩 for문 이용
+// 뽑는 개수(r)가 작을 때는 이렇게 구현
+// ex. r = 3이면 3중 for문으로 구현
+int n = 5, k = 3, a[5] = {1, 2, 3, 4, 5};
+int main(){
+    // m1)
+    for(int i = 0; i < n; i++){
+        for(int j = i + 1; j < n; j++){
+            for(int k = j + 1; k < n; k++){
+                cout << a[i] << a[j] << a[k] << "\n"; // a에서 3개를 뽑을 경우의 수
+            }
+        }
+    }
+    // m2)
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < i; j++){
+            for(int k = 0; k < j; k++){
+                cout << a[i] << a[j] << a[k] << "\n";
+            }
+        }
+    }
+}
+
+// 정수론
+// 최대공약수 구하는 법 (a < b)
+int gcd(int a, int b){
+    return gcd(b % a, a);
+}
+
+// 최소공배수 구하는 법 (lcm = a*b / 최대공약수)
+int gcd(int a, int b){
+    if(a == 0) return b;
+    return gcd(b % a, a);
+}
+int lcm(int a, int b){
+    return (a * b) / gcd(a, b);
+}
+int main(){
+    int a = 10, int b = 12;
+    cout << lcm(a, b) << "\n";
+}
