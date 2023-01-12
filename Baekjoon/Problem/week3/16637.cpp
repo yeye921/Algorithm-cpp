@@ -44,7 +44,7 @@ void go(int idx, int _num){
         go(idx + 2, oper(oper_str[idx], _num, temp));     // 2)
     } 
     return;
-} 
+}
 int main(){
     fastIO();
     cin >> n;  
