@@ -7,8 +7,8 @@
 
 // 반례 
 // 9 0 9 => 9가 나와야 함
-// 100 1 2 => 21이 나와야 함
-// 5442 0 4 => 4444가 아니라 4440이 나와야 함!!
+// 100 1 2 => 22이 나와야 함
+// 5442 0 4 => 4444
 // 89 0 9 => 9
 // 6 3 7 => 3
 // result를 string으로 한 버전 !!!
@@ -17,7 +17,6 @@ using namespace std;
 string n, ret;
 int x, y;
 vector<int> v;
-// int result[100004];
 string result = "";
 // 그냥 이 함수가 잘못되었음
 // 12 > 21 > 121 > 122 > .. 이런식으로 만들 수 있어야 함
@@ -31,7 +30,7 @@ void recursive(int idx, int size){
         //cout << result << "\n";
         //lim > n 만 아니면 됨
         bool check = chk(result, n);
-        if(!check && (result.find(to_string(x)) != string::npos || result.find(to_string(y)) != string::npos)){ // 빠진조건: lim <= n
+        if(check && (result.find(to_string(x)) != string::npos || result.find(to_string(y)) != string::npos)){ // 빠진조건: lim <= n
             // ret = max(ret, lim);
             if(chk(result, ret)) ret = result; // result가 ret보다 큰 수이면
         }
@@ -39,9 +38,7 @@ void recursive(int idx, int size){
     }
     for(int i = 0; i < v.size(); i++){
         result += to_string(v[i]);
-    	// result[idx] = v[i];
         recursive(idx + 1, size);
-        // result.erase(result.size() - 1, 1); // 맨끝 문자 자르기,삭제
         result.pop_back();
     }
 }
@@ -65,7 +62,6 @@ int main(int argc, char** argv)
 	*/
 	for(test_case = 1; test_case <= T; ++test_case)
 	{
-        // memset(result, 0, sizeof(result));
         v.clear();
         ret = "0";
         cin >> n >> x >> y;
@@ -77,13 +73,7 @@ int main(int argc, char** argv)
             continue;
         }
 
-        // if(n.size() == 1 && stoi(n) < 10 * x + y){ // 만약 선물할 수 있는 수가 없으면
-        //     cout << "#" << test_case << " " << "-1\n";
-        //     continue;
-        // }
-        // int size = to_string(n).size();
         int size = n.size();
-        // recursive(0, size);
 
         // 반복문 안에서 recursive 돌리면 되겠다!! => 여기서 시간초과????
         for(int i = 0; i < size; i++){ // 100 1 2에서 에러남
