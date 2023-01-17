@@ -85,12 +85,12 @@ cout << a - 97 << "\n";
 // 동적으로 요소를 할당할 수 있는 동적 배열
 // vector에서 자주 사용되는 함수: v.erase(), find(), fill(), clear(), pop_back(), push_back()
 vector<int> v(5, 100); // 5크기의 벡터를 선언하고 100으로 채운 모습
+vector<int> = {1, 2, 3}; // int형 벡터 생성 후 1, 2, 3으로 초기화
 v.erase(v.begin() + i); // i번째 요소 삭제
 v.erase(v.begin(), v.begin() + 1); // 범위로 삭제
 auto a = find(v.begin(), v.end(), 100);
 fill(v.begin(), v.end(), 10); // 벡터 초기화
-v.clear();
-
+v.clear(); // 벡터 초기화
 
 // Array - 정적배열. 연속된 메모리 공간이며 스택에 할당됨. 컴파일 단계에서 크기가 결정됨
 // array에서 자주 사용되는 함수: find(), fill()
@@ -104,7 +104,7 @@ fill(&a[0][0], &a[0][0] + m*n, 채울 값);
 memset(a, 0또는 -1, sizeof(a));
 
 // 배열 복사하는 함수: memcpy
-memcpy(a, temp, sizeof(a));
+memcpy(temp, a, sizeof(a)); // 복사받을 배열 > 복사할 배열 순으로 들어감!
 
 // pair: 두가지의 값을 담아야 할 때 사용
 // tuple: 세가지 이상의 값을 넣을 때 사용
@@ -119,21 +119,21 @@ int main(){
     cout << a << b << "\n";
     tie(a, b, c) = tl;
     cout << a << b << c << "\n";
-} 
+}
 
 // array나 vector를 정렬하는 sort함수
 // sort(first, last, cmp), cmp는 따로 설정하지 않으면 자동으로 오름차순 정렬된다
-vecotr<int> a;
+vector<int> a;
 int b[5];
 
-1. 오름차순 정렬
+// 1. 오름차순 정렬
 sort(b, b + 5);
 sort(b, b + 5, less<int>());
 
 sort(a.begin(), a.end());
 sort(a.begin(), a.end(), less<int>());
 
-2. 내림차순 정렬
+// 2. 내림차순 정렬
 sort(b, b + 5, greater<int>());
 sort(a.begin(), a.end(), greater<int>());
 
@@ -155,13 +155,13 @@ int main(){
     mp["test1"] = 4; // 이 방법을 권장
 
     for(auto element : mp){
-        cout << element.first << "::" << element.second() << "\n";
+        cout << element.first << "::" << element.second << "\n";
     }
 
     // map의 find메소드는 찾지 못하면 end() 이터레이터를 반환함
     auto search = mp.find("test4");
     if(search != mp.end()){ // search는 찾은 값의 위치를 가리키는 포인터
-        cout << "found: " << search -> first << " " << (*search).second() << "\n";
+        cout << "found: " << search -> first << " " << (*search).second << "\n";
     }
 
     // 이런식으로 바로 int형을 증가시킬 수 있음
@@ -173,7 +173,7 @@ int main(){
     cout << mp.size() << "\n";
 } 
 
-// map의 경우 해당 인덱스에 참조만 해도 맵에 값이 생기며 맵의 요서가 생기게 됨
+// map의 경우 해당 인덱스에 참조만 해도 맵에 값이 생기며 맵의 요소가 생기게 됨
 
 // "map에 요소가 있는지 없는지"를 확인하고 맵에 데이터를 할당하는 로직
 map<int, int> mp;
@@ -186,7 +186,7 @@ int main(){
 
 // set 자료구조
 // 특정 순서에 따라 고유한 요소를 저장하는 컨테이너
-// 중복된 요소는 없고 오로지 희소한 값만 저장하는 자료구조
+// "중복된 요소는 없고" 오로지 희소한 값만 저장하는 자료구조
 // 나머지는 map과 똑같음
 int main(){
     set<pair<string, int>> st;
@@ -268,7 +268,7 @@ int main(){
     }while(prev_permutation(v.begin(), v.end()));
 }
 
-// 2. 재귀를 이용해서 순열을 구현하는 방법
+// 2. 재귀를 이용해서 순열을 구현하는 방법 !!
 #include <bits/stdc++.h>
 using namespace std;
 int a[3] = {1, 2, 3};
