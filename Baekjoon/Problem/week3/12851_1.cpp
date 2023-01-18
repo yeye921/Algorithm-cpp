@@ -10,7 +10,6 @@ const int MAX = 100000;
 int n, k;
 int visited[MAX + 4]; // 최단거리 배열 !
 int cnt[MAX + 4];
-int ret = 987654321;
 void bfs(int n){
     queue<int> q;
     visited[n] = 1;
@@ -26,7 +25,7 @@ void bfs(int n){
                 visited[next] = visited[now] + 1;
                 q.push(next);
                 cnt[next]++;
-            } else if(visited[next] == visited[now] + 1){
+            } else if(visited[next] == visited[now] + 1){ // if가 아닌 else if로 하는게 중요 !! (안그러면 틀림)
                 cnt[next]++;
                 q.push(next);
             } // +) 이미 방문했는데 최단거리가 아닌 경우면 건너뜀
