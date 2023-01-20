@@ -42,7 +42,6 @@ int main(){
                 int ny = y + dy[i]; 
                 int nx = x + dx[i];
                 if(ny < 0 || ny >= n || nx < 0 || nx >= m || visited[ny][nx]) continue; 
-                cout << ny << " " << nx << "\n";
                 visited[ny][nx] = cnt; // 공통으로 방문처리
                 if(a[ny][nx] != '0'){ // 만약 좌표의 값이 1, #, *이면
                     a[ny][nx] = '0'; // 0으로 변환
