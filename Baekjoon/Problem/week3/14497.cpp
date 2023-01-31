@@ -6,6 +6,7 @@
 // ex. # 1 0 1 0 0 * 일 경우 3번만에 만난다
 
 // +) 2차원 좌표를 하나의 int로 표현하는 방법
+// 플루드필 알고리즘 문제 > 큐를 두개 사용함(tempQ, Q)
 #include <stdio.h>
 #include <iostream>
 #include<algorithm>
