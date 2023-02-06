@@ -33,7 +33,7 @@ int main(){
 		if(b >= mp && c >= mf && d >= ms && e >= mv){ // 영양소 최소 기준을 만족하면
 			if(ret >= sum){ // 비용이 최소가 되면 갱신해야함
 				ret = sum;
-                ret_v[ret].push_back(v); 
+                ret_v[ret].push_back(v); // map<int, vector<vector<int>>> 형태는 다음과 같이 삽입함 !!
 			}
 		} 
 	}  
