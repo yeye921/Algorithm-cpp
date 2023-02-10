@@ -1,6 +1,4 @@
 // 큰돌 풀이 (400ms)
-
-// Q. visited = 1 처리가 dfs의 맨 앞에 있으면 안되나..?
 #include <bits/stdc++.h>
 using namespace std;
 const int dy[4] = {-1, 0, 1, 0};
