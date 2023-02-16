@@ -1,48 +1,63 @@
-// 큰돌 풀이
-// 조합이 중요한 문제이므로 비트마스킹을 이용해서 뽑을 것임
-// (따라서 a=1, b=2, c=4, d=8,...로 매핑할 것임) (c,a를 배웠다 => 5, a,b를 배웠다 => 3)
-// 알파벳 개수가 최대 26개까지이므로 비트 마스킹이 가능한 것이다 > 시간 복잡도가 최대 2^30
-// 해당 글자를 배웠냐(1) 안배웠냐(0)로 각 알파벳에 대해 두가지 경우의 수만 가능함
+// 비트마스킹 기반 내 풀이 (큰돌 변형) > 맞음 > 이 풀이가 최단시간임!!
 
 // 핵심 알고리즘
-// if(읽어야 하는 것 & 배운 것 == 읽어야 하는 것)이면 그 단어는 읽을 수 있는 것이다
+// if((읽어야 할 단어 & 학습한 단어) == 읽어야 할 단어)이면 읽을 수 있는 단어이다
 
-// 모든 단어가 anta로 시작하고 tica로 끝나기 때문에 a,c,n,t,i는 무조건 배워야 한다
+// 내가 이해 안갔던 부분 ex)
+// 1 7 
+// antabtica 
+// 내 생각: b만 뽑으면 되는데 k가 왜 7이지?
+// => 알파벳을 최소로 뽑았을 때 읽을 수 있는 단어의 최댓값이 아님
+// => 그냥 뽑을 알파벳의 개수임 ! (a,b를 뽑던 a,c를 뽑던 알 바 아님)
+
+// 10진수인 정수를 2진수로 출력하는 방법 > bitset이용
+// bitset<비트 수>(bit)
 #include <bits/stdc++.h>
 using namespace std;
-int n, m, words[51];
-string s; 
-int count(int mask) {
-    int cnt = 0;
-    for (int word : words) { 
-        if(word && (word & mask) == word)cnt++; // 읽을 수 있는 단어면 cnt 증가
+int n, m, cnt, ret, bit;
+string s;
+int str[53];
+void go(int start, int alpha, int dep){ // alpha = 학습한 단어들이 저장되어 있음
+    // 기저사례 (뽑을 개수만큼 뽑았다)
+    if(dep == cnt){
+        // 읽을 수 있는 단어 개수의 최댓값 갱신
+        int voc = 0;
+        for(int i = 0; i < n; i++){
+            if((str[i] & alpha) == str[i]){ // 읽을 수 있는 단어이면
+                voc++;
+            }
+        }
+        ret = max(ret, voc);
+        return;
     }
-    return cnt;
-}
-
-int go(int index, int k, int mask) {
-    if (k < 0) return 0;
-    cout << index << " " << k << " " << mask << "\n";
-    if (index == 26) return count(mask); // 기저사례: 끝까지 왔으면(=모든 알파벳에 대해 배웠냐/안배웠냐를 결정함) > 읽을 수 있는 글자를 세야 함
-    int ret = go(index+1, k-1, mask | (1 << index));  // 배웠으면 k-1
-    if (index != 'a'-'a' && index != 'n'-'a' && index != 't'-'a' && index != 'i'-'a' && index != 'c'-'a') { // a,c,n,t,i는 무조건 배워야하는 단어 !
-        ret = max(ret, go(index+1, k, mask)); // a,c,n,t,i가 아니면 안배워도 됨
+    // 메인 로직(완탐 진행)
+    for(int i = start + 1; i < 26; i++){ // !! i시작점을 start + 1로 해야 시간 단축됨!! (0부터 시작할 필요 없음 > 이미 start까지는 다 탐색한거니까 또 할 필요 없음)
+        if(((1 << i) & alpha) == 0){ // a,c,n,t,i는 제외 (전에 뽑지 않았던 알파벳에 대해서만 진행) (실수 팁: i가 아니라 (1 << i)이다 !!)
+            go(i, alpha | (1 << i), dep + 1); // 아래 세 줄 코드가 이 한 줄로 바뀜 !!
+        }
+        // visited[i] = 1;
+        // go(i, cnt + 1);
+        // visited[i] = 0;
     }
-    return ret;
 }
-int main() { 
-    cin >> n >> m; 
-    for (int i=0; i<n; i++) { 
+int main(){
+    cin >> n >> m;
+    for(int i = 0; i < n; i++){
         cin >> s;
-        for (char str : s) {
-            words[i] |= (1 << (str - 'a')); // 알파벳을 이진수로 변환해서 word라는 배열에 담음
+        for(char c : s){
+            str[i] |= (1 << (c - 'a')); // 받은 문자열(=읽어야 할 단어)에 포함된 문자들을 str[i]에 비트를 켜서 표시함
         }
     }
-    cout << go(0, m, 0) << '\n'; // 재귀함수 호출
-    return 0;
+    if(m < 5){
+        cout << 0 << "\n";
+        return 0;
+    }
+
+    // a,c,n,t,i는 이미 배웠다고 가정
+    bit = (1 << ('a'-'a')) | (1 << ('c'-'a')) | (1 << ('n'-'a')) | (1 << ('t'-'a')) | (1 << ('i'-'a'));
+    // cout << "bit " << bitset<26>(bit) << "\n";
+
+    cnt = m - 5; // 학습시킬(=뽑을) 알파벳개수
+    go(-1, bit, 0);
+    cout << ret << "\n";
 }
-/* 이해하기 힘들면 이 예제 한번 출력해 보기
-2 3
-antaxxxxxxxtica
-antarctica
-*/
