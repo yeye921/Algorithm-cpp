@@ -3,9 +3,21 @@
 using namespace std;
 
 // c++에서 많이 사용되는 문자열에 관한 함수
+// insert(넣을위치, 넣을 문자열), erase(시작위치, 크기) (중요!!)
 // reverse(s.begin(), s.end())
 // s.substr(index, 개수)
 // s.find("abc")
+int main(){
+    string a = "love is";
+    a += " pain!";
+    a.pop_back(); // 문자열의 가장 마지막 문자 삭제 !! (love is pain)
+    cout << char(*a.begin()) << "\n"; // 문자열 a의 첫번째 문자
+    cout << char(*(a.end() - 1)) << "\n"; // a의 마지막 문자
+
+    a.insert(0, "test "); // a의 0번째 위치에 해당 문자열 삽입
+    a.erase(0, 5); // 0번째 문자부터 5개 문자 삭제
+}
+
 string dopa = "amumu is best";
 int main(){
     cout << dopa << "\n";
@@ -35,7 +47,7 @@ vector<string> split(string input, string delimiter){
 int main(){
     string s = "aaa bbb ccc";
     vector<string> v = split(s, " ");
-    for(str : v) cout << str << "\n";
+    for(string str : v) cout << str << "\n";
 }
 
 // 입력받은 글자가 문자열인지 숫자인지 확인하는 함수 => atoi(s.c_str())
@@ -44,6 +56,9 @@ string s = "1";
 string s2 = "amumu";
 cout << atoi(s.c_str()) << "\n"; // 1
 cout << atoi(s2.c_str()) << "\n"; // 0
+// s.c_str(): 문자열을 문자로 변환하는 함수
+// atoi(char c): 문자가 숫자인지 판단하는 함수
+
 
 // int, 4바이트짜리 정수 => -20억 ~ 20억까지 표현가능
 // int의 최대값으로 다음과 같이 설정 => INF + INF라는 연산이 일어날 수 있기 때문에 오버플로 방지하기 위해
@@ -86,13 +101,15 @@ cout << a - 97 << "\n";
 // vector에서 자주 사용되는 함수: v.erase(), find(), fill(), clear(), pop_back(), push_back()
 vector<int> v(5, 100); // 5크기의 벡터를 선언하고 100으로 채운 모습
 vector<int> = {1, 2, 3}; // int형 벡터 생성 후 1, 2, 3으로 초기화
+
 v.erase(v.begin() + i); // i번째 요소 삭제
 v.erase(v.begin(), v.begin() + 1); // 범위로 삭제
+
 auto a = find(v.begin(), v.end(), 100);
 fill(v.begin(), v.end(), 10); // 벡터 초기화
 v.clear(); // 벡터 초기화
 
-// Array - 정적배열. 연속된 메모리 공간이며 스택에 할당됨. 컴파일 단계에서 크기가 결정됨
+// Array - 정적배열. 연속된 메모리 공간이며 스택에 할당됨. 컴파일    단계에서 크기가 결정됨
 // array에서 자주 사용되는 함수: find(), fill()
 int v[10];
 auto a = find(v, v + 10, 100);
@@ -229,8 +246,217 @@ int main(){
 }
 
 
+// 역참조 연산자 (*)
+// in c++, *는 곱셉 연산, 포인터 타입의 선언, 역참조로 메모리를 기반으로 변수의 값에 접근 (총 3가지가 가능)
+int main(){
+    string a = "abcde";
+    string *b = &a; // 변수 a의 주소값을 담은 포인터 b
+    cout << b << "\n";
+    cout << *b << "\n"; // * 연산자를 통해 역참조를 걸어, 주소값을 기반으로 값을 참조할 수 있음
+}
 
-// ---------------------------52~70p까지 건너뜀
+// 화살표 연산자(->)
+// 멤버 변수가 있는 변수라면, 역참조가 아닌 화살표 연산자를 통해서도 해당 멤버 변수를 끄집어낼 수 있음
+pair<int, int> a = {1, 2};
+int main(){
+    pair<int, int> *b = &a; // b는 a를 가리키는 포인터
+    cout << b -> first << "\n"; // 화살표 연산자를 통해 해당 변수의 값을 가져옴
+    cout << (*b).first << "\n";
+}
+
+// 배열 이름과 포인터
+// 배열의 이름을 배열의 첫번째 주소로서 쓸 수 있다. vector는 안되고 array만 가능함
+int a[3] = {1, 2, 3};
+int main(){
+    int *b = &a[0]; // 배열의 첫번째 주소
+    int *c = a;
+    cout << b << "\n";
+    cout << c << "\n";
+    // b와 c는 같은 값을 출력함 > 즉, &a[0]과 a는 같은 의미를 가짐
+
+    // &a[1]을 a + 1로도 표현 가능함
+    int *d = (a + 1); // 배열의 1번째 주소는 배열의 이름 + 1로 나타낼 수 있음
+    cout << d << "\n";
+    cout << &a[1] << "\n";
+    return 0;
+}
+
+// iterator: 컨테이너에 저장되어 있는 요소의 주소를 가리키는 개체 (포인터를 일반화한 것)
+// vector, map 등 각각 다르게 구현된 컨테이너들을 일반화된 이터레이터를 통해 쉽게 순회할 수 있음
+// 바로는 주소값을 반환하지 못하고 &*를 통해 해당요소의 주소값 반환 가능
+vector<int> v;
+int main(){
+    for(int i = 0; i <= 5; i++) v.push_back(i);
+    for(int i = 0; i < 5; i++){
+        cout << i << "번째 요소 : " << *(v.begin() + i) << "\n"; // i번째에 위치한 요소의 값 반횐
+        // cout << v.begin() << "\n"; // 에러남
+        cout << &*(v.begin() + i) << "\n"; // i번째 주소값 알아내려면 &*로 접근해야함 !!!
+    }
+    // iterator를 auto로 선언하면 아래보다 간단함
+    for(auto it = v.begin(); it != v.end(); it++){
+        cout << *it << " ";
+    }
+    cout << "\n";
+    
+    // 원래 iterator
+    for(vector<int>::iterator it = v.begin(); it != v.end(); it++){
+        cout << *it << " ";
+    }
+    auto it = v.begin(); // 컨테이너의 시작 위치를 반환함
+    advance(it, 3); // 해당 이터레이터를 cnt까지 증가시킴 (출력: 4)
+    cout << "\n";
+    cout << *it << "\n";
+}
+
+// fill()과 memset(): 배열을 초기화 할 때 사용
+// fill(시작값, 끝값, 초기화하는 값)
+// memset(배열의 이름, 0 또는 -1, 배열의 크기) // 0, -1 이외의 값으로 초기화 불가!!
+int main(){
+    // 1차원 배열 초기화
+    fill(v2.begin(), v2.end(), INF);
+    fill(a, a + max_n, 10);
+
+    // 2차원 배열 초기화
+    fill(&a[0][0], &a[0][0] + n * m, INF);
+
+    memset(a, -1, sizeof(a));
+    memset(a2, 0, sizeof(a2));
+}
+
+// memcpy(복사받을 배열, 복사할 배열, sizeof(복사할 배열)):
+// 어떤 변수의 메모리에 있는 값들을 다른 변수의 "특정 메모리값"으로 복사할 때 사용함
+// 주로 배열을 깊은 복사할 때 사용함 
+int a[5], temp[5];
+int main(){
+    for(int i = 0; i < 5; i++) a[i] = i;
+    memcpy(temp, a, sizeof(a));  // temp라는 배열에 a를 담음 
+
+    a[4] = 1000; // 원본 배열 a를 수정하고 뭐 하는 로직
+    memcpy(a, temp, sizeof(temp)); // a에 temp를 담음으로써 원본 배열 a로 돌아옴
+}
+
+// sort(first, last, *커스텀비교함수): 배열 등 컨테이너들의 요소를 정렬하는 함수 (O(nlogn))
+// 세번째 인자에 아무것도 넣지 않으면 기본적으로 오름차순이다
+vector<int> a;
+int b[5];
+int main(){
+    for(int i = 5; i >= 1; i--) b[i - 1] = i;
+    for(int i = 5; i >= 1; i--) a.push_back(i);
+
+    // 오름차순 (default)
+    sort(b, b + 5);
+    sort(a.begin(), a.end());
+    sort(b, b + 5, less<int>());
+    sort(a.begin(), a.end(), less<int>());
+
+    // 내림차순
+    sort(b, b + 5, greater<int>());
+    sort(a.begin(), a.end(), greater<int>());
+}
+// pair를 기반으로 만들어진 vector의 경우 따로 설정하지 않으면 first > second > third순으로 차례차례 오름차순 정렬된다
+// 내림차순 정렬을 하고 싶거나 first는 내림차순, second는 오름차순 정렬을 하고 싶으면 "커스텀 연산자"를 사용!
+vector<pair<int, int>> v;
+bool cmp(pair<int, int> a, pair<int, int> b){
+    return a.first > b.first; // first는 내림차순 정렬
+}
+int main(){
+    for(int i = 10; i >= 1; i--){
+        v.push_back({i, 10 - i}); // {{10, 1}, {9, 2}, ... {1, 9}}
+    }
+    sort(v.begin(), v.end(), cmp);  
+}
+
+// unique(): 범위안에 있는 요소 중 중복되는 요소를 제거하고 중복되지 않은 요소들로 앞에서부터 정렬되어 채움
+// 그리고 나서 나머지 요소들은 삭제하지 않고 그대로 둠 (O(n))
+vector<int> v;
+int main(){
+    for(int i = 1; i <= 5; i++){
+        v.push_back(i);
+        v.push_back(i);
+    }
+    for(int i : v) cout << i << " "; // 1 1 2 2 3 3 4 4 5 5
+    cout << "\n";
+
+    // 원본 배열 자체를 수정함
+    auto it = unique(v.begin(), v.end()); // 중복되지 않은 요소들로 앞에서부터 채운 후, 그 다음 이터레이터를 반환함
+    cout << it - v.begin() << "\n"; // 5
+
+    for(int i : v) cout << i << " "; // 1 2 3 4 5 1 2 3 4 5
+    cout << "\n";
+}
+
+// unique함수를 통해 중복되지 않은 요소들의 집합을 만들 수 있음
+// sort, unique, erase순서임 (sort를 하는 이유? 중복되는 원소들이 인접해있어야 중복되었다고 판단 가능)
+vector<int> v;
+int main(){
+    for(int i = 1; i <= 5; i++){
+        v.push_back(i);
+    }
+    for(int i = 5; i >= 1; i--){
+        v.push_back(i);
+    }
+    // v = {1,2,3,4,5,5,4,3,2,1}
+    sort(v.begin(), v.end()); // v = {1,1,2,2,3,3,4,4,5,5}
+    v.erase(unique(v.begin(), v.end()), v.end()); // v = {1,2,3,4,5}
+}
+
+// lower_bound(): 어떠한 값의 이상이 되는 위치 (0번째부터 탐색)
+// upper_bound(): 어떠한 값이 나오기 전의 위치 (뒤에서부터 탐색)
+// 정렬된 배열에서 어떤 값이 나오는 지점이나 어떤 값이 나오기전의 위치를 반환할 때 사용
+// 이분탐색을 쉽게 함수로 구현하기 위해 사용
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    vector<int> v;
+    int a[5] = {1,2,2,2,3};
+    for(int i = 0; i < 5; i++) v.push_back(a[i]); // v = {1,2,2,2,3}
+    int x = 2;
+
+    // 2가 나오기 전의 위치(4) - 2이상이 되는 위치(1) = 4-1 = 3
+    // x의 개수를 이런 방식으로 셀 수 있다 (중요!!)
+    int c = (int)(upper_bound(v.begin(), v.end(), x) - lower_bound(v.begin(), v.end(), x)); 
+    
+    int f = (int)(lower_bound(v.begin(), v.end(), x) - v.begin()); // 2이상이 되는 위치의 인덱스
+    int t = (int)(upper_bound(v.begin(), v.end(), x) - v.begin()); // 2가 나오기 전 위치의 인덱스
+
+    int f2 = *lower_bound(v.begin(), v.end(), x); 
+    int t2 = *upper_bound(v.begin(), v.end(), x);
+    cout << x << "의 개수: " << c << ", 시작되는 위치: " << f << ", 끝나는 위치: " << t << "\n";
+    cout << "lower bound가 시작되는 점의 값: " << f2 << ", upper bound가 시작되는 점의 값: " << t2 << "\n"; 
+    
+    // x가 나오기 전의 위치 - x의 이상이 되는 위치 = 4-1 = 3
+    c = (int)(upper_bound(a, a + 5, x) - lower_bound(a, a + 5, x));
+    f = (int)(lower_bound(a, a + 5, x) - a); // x값의 이상이 되는 위치
+    t = (int)(upper_bound(a, a + 5, x) - a); // x가 나오기 전의 위치 
+
+    f2 = *lower_bound(a, a + 5, x);
+    t2 = *upper_bound(a, a + 5, x);
+    cout << x <<"의 개수: " << c << ", 시작되는 위치: " << f << " 끝나는 위치: " << t << "\n";
+    cout << "lower bound가 시작되는 위치의 값: " << f2 << ", upper bound가 시작되는 위치의 값: " << t2 << "\n";
+}
+
+// 만약 원소를 찾을 때 값이 없다면 그 근방 지점을 반환한다
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> v;
+int main(){
+    for(int i = 2; i <= 5; i++) v.push_back(i);
+    v.push_back(7);
+    // v = {2,3,4,5,7}
+
+    cout << upper_bound(v.begin(), v.end(), 6) - v.begin() << "\n"; // 6이 나오기 전의 위치 인덱스 = 4
+    cout << lower_bound(v.begin(), v.end(), 6) - v.begin() << "\n"; // 6이상의 값의 위치 인덱스 = 4
+    
+    // 값이 없다면 그 근방지점을 반환하는 예제
+    cout << upper_bound(v.begin(), v.end(), 9) - v.begin() << "\n"; // 9가 나오기 전의 위치 인덱스 = 5
+    cout << lower_bound(v.begin(), v.end(), 9) - v.begin() << "\n"; // 9이상의 값의 위치 인덱스 = 5
+
+    cout << upper_bound(v.begin(), v.end(), 0) - v.begin() << "\n"; // 0이 나오기 전의 위치 인덱스 = 0
+    cout << lower_bound(v.begin(), v.end(), 0) - v.begin() << "\n"; // 0이상의 값의 위치 인덱스 = 0
+}
+
+
+// ---------------------------66~70p까지 건너뜀
 // 1.5 수학
 // 경우의 수라고 했을 때 기본적으로 순열과 조합이 생각나야 함
 
