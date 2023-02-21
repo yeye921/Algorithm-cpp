@@ -1,1 +1,0 @@
-if(result.find(x) != string::npos || result.find(y) != string::npos){
