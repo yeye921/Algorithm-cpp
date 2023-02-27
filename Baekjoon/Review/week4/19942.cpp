@@ -20,7 +20,7 @@ int main(){
     }
 
     // 뽑기
-    for(int i = 1; i < (1 << n); i++){
+    for(int i = 0; i < (1 << n); i++){
         vector<int> temp;
         _mp = _mf = _ms = _mv = _cost = 0;
         for(int j = 0; j < n; j++){ // 각 경우의 수마다 뽑는 식재료에 대한 처리 > 로직 나옴
