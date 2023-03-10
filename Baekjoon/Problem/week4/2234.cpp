@@ -10,9 +10,11 @@
 // 내 생각: 벽들을 벡터에 담은 다음, 각 벽을 지우면서 최대 값을 갱신해나가는 완전탐색 방식 생각함
 
 // 결론: 비트 마스킹 + DFS(connected component)
+// visited[i][j]의 용도: (좌표 - 해당 영역의 id) 매핑
+// compSize[cnt]의 용도: (해당 영역의 id - 해당 영역의 넓이) 매핑
 #include <bits/stdc++.h>
 using namespace std;   
-const int dy[] = {0, -1, 0, 1}; 
+const int dy[] = {0, -1, 0, 1}; // 이거 서북동남(0,1,2,3 > 1,2,4,8)이랑 맞추는게 좋음
 const int dx[] = {-1, 0, 1, 0}; 
 int visited[51][51], a[51][51], cnt, compSize[2504], n, m, mx, big; 
 int dfs(int y, int x, int cnt){
