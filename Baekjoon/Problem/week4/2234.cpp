@@ -22,7 +22,7 @@ int dfs(int y, int x, int cnt){
     visited[y][x] = cnt; // dfs 돌면서 각 영역을 id로 색칠해놓음
     int ret = 1; 
     for(int i = 0; i < 4; i++){
-        if(!(a[y][x] & (1 << i))){ // 1,2,4,8을 판단 (동서남북 벽)
+        if(!(a[y][x] & (1 << i))){ // 이동하려는 방향에 벽이 있으면 이동 못함
             int ny = y + dy[i]; 
             int nx = x + dx[i]; 
             ret += dfs(ny, nx, cnt); // 자식노드에 대해서 dfs 걸음 (연결된 노드의 합을 이렇게 구함)
