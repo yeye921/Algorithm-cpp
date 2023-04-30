@@ -3,8 +3,6 @@
 
 // 평균값을 반올림하기위해 round함수 사용
 #include <iostream>
-#include <algorithm>
-#include <vector>
 #include <cmath>
 using namespace std;
 int T, test_case;
