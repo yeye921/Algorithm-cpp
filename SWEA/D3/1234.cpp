@@ -3,6 +3,7 @@
 // m1) stack 이용
 #include <iostream>
 #include <stack>
+#include <algorithm>
 using namespace std;
 int n;
 string s;
@@ -19,10 +20,13 @@ int main(){
         }
         cout << "#" << tc << " ";
         string ret;
+
+        // 스택에 있는 숫자들을 문자열로 합침
         while(st.size()){
-            cout << st.top();
+            ret += to_string(st.top());
             st.pop();
         }
-        cout << "\n";
+        reverse(ret.begin(), ret.end()); // 순서를 뒤집어줘야함
+        cout << ret << "\n";
     }
 }
