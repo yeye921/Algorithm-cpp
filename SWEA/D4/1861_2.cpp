@@ -15,6 +15,8 @@ BFS를 이용한 문어박사 풀이
 */
 #include <iostream>
 #include <queue>
+#include <tuple>
+#include <algorithm>
 using namespace std;
 #define max_n 1004
 const int dy[4] = {-1, 0, 1, 0};
@@ -39,7 +41,7 @@ pair<int, int> bfs(int y, int x){
             int ny = a + dy[i];
             int nx = b + dx[i];
             if(ny < 0 || nx < 0 || ny >= n || nx >= n) continue;
-            if(!visited[ny][nx] && (abs(arr[ny][nx]-arr[a][b]) == 1)){
+            if(!visited[ny][nx] && abs(arr[ny][nx] - arr[a][b]) == 1){
                 q.push({ny, nx});
                 visited[ny][nx] = 1;
                 ans.push_back(arr[ny][nx]);
@@ -74,8 +76,14 @@ int main(){
                     // 나중에 갱신되는 temp 값들 (아래4줄 중요!)
                     int t_start = pi.first;
                     int t_cnt = pi.second;
-                    if(cnt < t_cnt) cnt = t_cnt; // 최대 방개수가 다르면 큰 걸로 갱신함 
-                    else if(cnt == t_cnt && (start > t_start)) start = t_start; // 방개수가 똑같으면 시작점이 작은 수로 갱신함
+
+                    // 이 부분이 실수하기 좋음!!
+                    // 해당 bfs 결과의 방 개수가 더 크면 현재값이 정답이고
+                    // 방 개수가 똑같으면 시작점이 작은 수로 갱신함
+                    if((cnt < t_cnt) || ((cnt == t_cnt) && (start > t_start))){
+                        cnt = t_cnt;
+                        start = t_start;
+                    }
                 }
             }
         }
