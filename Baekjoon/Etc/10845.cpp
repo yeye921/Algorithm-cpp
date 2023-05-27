@@ -1,10 +1,12 @@
 // 큐 관련 기본 함수 숙지!
 // push_back()은 벡터 관련 함수이다!
 // pop(): 큐의 가장 앞에 있는 요소 제거. front(): 가장 앞에 있는 요소를 참조
-// 중요) 큐의 가장 뒤에 있는 정수를 출력하는 법
+// 중요) back(): 큐의 제일 마지막 데이터를 반환하는 함수
+// swap(queue1, queue2): 두 큐의 내용을 바꾸는 함수
+// empty(): 큐가 비어있으면 1, 아니면 0을 반환하는 함수
 #include <bits/stdc++.h>
 using namespace std;
-int n;
+int n, x;
 queue<int> q;
 int main(){
     cin >> n;
@@ -12,7 +14,6 @@ int main(){
         string order;
         cin >> order;
         if(order == "push"){
-            int x;
             cin >> x;
             q.push(x);
         }
@@ -30,8 +31,7 @@ int main(){
         }
         else if(order == "empty")
         {
-            if(q.empty()) cout << "1\n";
-            else cout << "0\n";
+            cout << q.empty() << "\n";
         }
         else if(order == "front")
         {
@@ -40,18 +40,8 @@ int main(){
         }
         else if(order == "back")
         {
-            queue<int> temp;
-            if(q.empty()) cout << "-1\n";
-            else {
-                int back;
-                while(q.size()){
-                    back = q.front();
-                    temp.push(back);
-                    q.pop();
-                }
-                cout << back << "\n";
-                q = temp;
-            }
+            if(q.size()) cout << q.back() << "\n";
+            else cout << "-1\n";
         }
     }
 }
