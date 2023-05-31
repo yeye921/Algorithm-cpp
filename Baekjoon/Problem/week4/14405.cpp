@@ -20,5 +20,4 @@ int main(){
     // 순회가 끝나면 체크
     if(!stk.length()) cout << "YES\n";
     else cout << "NO\n";
-    return 0;
 }
