@@ -4,7 +4,7 @@
 // min기준으로 탐색하면 반복문 2번 돌아야 함
 // max기준으로 탐색하면 반복문 1번 돌아야 함
 
-// 푸는데 1시간 30분 걸림...
+// 푸는데 1시간 30분 걸림...5
 #include <bits/stdc++.h>
 using namespace std;
 string a, b, ans;
