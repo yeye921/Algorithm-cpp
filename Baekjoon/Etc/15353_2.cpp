@@ -8,32 +8,25 @@
 // 3. 올림을 처리하기 위해 reverse를 해서 끝에서 부터 더할 생각
 
 // +) string에 back(), pop_back()함수를 적용할 수 있다
-#include<bits/stdc++.h>
-using namespace std;   
-string string_add(string a, string b) {
-    int sum = 0;
-	string ret; 
-    while(a.size() || b.size() || sum){ // sum은 올림을 의미함
-        if(a.size()) {
-            sum += a.back() - '0'; // 문자를 정수로 변환
-            a.pop_back(); // 문자열의 가장 뒤에 있는 문자 꺼냄
-        }
-        if(b.size()) {
-            sum += b.back() - '0';
-            b.pop_back(); 
-        }
-        ret += (sum % 10) + '0'; // ret에는 13의 경우 3을 담음 (ret에는 나머지를 담음)
-        sum /= 10; // sum은 올림이기때문에 0또는 1이 되어야함
-    }
-	reverse(ret.begin(), ret.end());
-	return ret;
-} 
-string a, b; 
+#include <bits/stdc++.h>
+using namespace std;
+string a, b, ans;
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);   
-    cin >> a >> b;  
-    cout << string_add(a, b) << '\n'; 
-    return 0; 
+    cin >> a >> b;
+    int sum = 0;
+    while(a.size() || b.size() || sum){ // sum은 올림을 의미함
+        if(a.size()){
+            sum += a.back() - '0'; // 숫자 문자열의 뒤에서부터 더함 (올림처리를 해주기위해)
+            a.pop_back();
+        }
+        if(b.size()){
+            sum += b.back() - '0';
+            b.pop_back();
+        }
+        // 일의자리 수를 결과값에 누적
+        ans += (sum % 10) + '0';  // ret에는 13의 경우 3을 담음 (ret에는 나머지를 담음)
+        sum /= 10; // 올림이면, 다음 자리수에 올림을 반영 (sum을 올림값(0또는 1)로 초기화함)
+    }
+    reverse(ans.begin(), ans.end()); // 뒤에서부터 더했기 때문에 다시 뒤집어줘야함
+    cout << ans << "\n";
 }
