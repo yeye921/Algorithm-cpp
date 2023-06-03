@@ -28,6 +28,5 @@ int main() {
 
     int result = countSwappablePairs(signal);  // 맞바꿀 수 있는 신호 쌍의 개수 계산
     cout << result << endl;  // 결과 출력
-
     return 0;
 }
