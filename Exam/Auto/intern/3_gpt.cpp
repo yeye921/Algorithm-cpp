@@ -3,7 +3,6 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
 // 맞바꿀 수 있는 신호 쌍의 개수를 계산하는 함수
 int countSwappablePairs(const vector<int>& signal) {
     vector<int> lastIndex(signal.size(), -1);  // 각 신호의 마지막 인덱스를 저장하는 배열
